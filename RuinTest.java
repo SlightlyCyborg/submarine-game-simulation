@@ -27,4 +27,18 @@ public class RuinTest {
             fail("Should throw an exception");
         } catch (Exception e) {}
     }
+
+    @Test public void valueMustBePositive() {
+        try {
+            Ruin r = new Ruin(2, -1);
+            fail("Should throw an exception");
+        } catch (Exception e) {}
+    }
+
+    @Test public void levelMustBeLessThan16() {
+        try {
+            Ruin r = new Ruin(2, 17);
+            fail("Should throw an exception");
+        } catch (Exception e) {}
+    }
 }
