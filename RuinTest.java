@@ -14,9 +14,16 @@ public class RuinTest {
         assertEquals(13, r.getValue());
     }
 
-    @Test public void levelMustBeGreaterThan1() {
+    @Test public void levelMustBeGreaterThan0() {
         try {
             Ruin r = new Ruin(0, 13);
+            fail("Should throw an exception");
+        } catch (Exception e) {}
+    }
+
+    @Test public void levelMustBeLessThan5() {
+        try {
+            Ruin r = new Ruin(5, 13);
             fail("Should throw an exception");
         } catch (Exception e) {}
     }
