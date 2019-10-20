@@ -16,4 +16,13 @@ public class BoardTest {
         String actual = b.toString();
         assertEquals(expected, actual);
     }
+
+    @Test public void test3PlayerBoard() {
+        Board b = new Board(3);
+        String actual = b.toString();
+        String[] lines = actual.split("\n");
+        assertEquals(" 0", lines[1]);
+        assertEquals(" 1", lines[2]);
+        assertEquals(" 2", lines[3]);
+    }
 }
