@@ -3,12 +3,12 @@ package holon.simulation.game.submarine;
 import java.util.Vector;
 
 public class Board {
-    int air;
-    Vector<Integer> ruins;
+    AirTank tank;
+    Vector<Ruin> ruins;
     Vector<Integer> players;
 
     public Board(int numPlayers) {
-        air = 25;
+        tank = new AirTank();
         initRuins();
         initPlayers(numPlayers);
     }
@@ -22,18 +22,23 @@ public class Board {
 
     private void initRuins() {
         ruins = new Vector<>();
-        for(int i = 1; i <= 4; i++) {
-            for(int j = 0; j < 8; j++) {
-                ruins.add(i);
+        int value, level;
+        for(int levelInd = 0; levelInd < 4; levelInd++) {
+            for(int valueInd = 0; valueInd < 4; valueInd++) {
+                for(int duplicate = 0; duplicate < 2; duplicate++) {
+                    value = levelInd * 4 + valueInd;
+                    level = levelInd + 1;
+                    ruins.add(new Ruin(level, value));
+                }
             }
         }
     }
 
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(String.format("%d:", air));
-        for(int ruin: ruins) {
-            sb.append(String.format(" %d", ruin));
+        sb.append(String.format("%d:", tank.readGague()));
+        for(Ruin ruin: ruins) {
+            sb.append(String.format(" %d", ruin.getLevel()));
         }
         sb.append("\n");
         for(Integer player: players) {
