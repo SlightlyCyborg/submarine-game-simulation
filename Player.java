@@ -6,15 +6,17 @@ import java.util.Collections;
 public class Player {
 
     private String name;
-    private AirTank tank;
     private Vector<Integer> inventory;
     private Vector<Integer> stash;
 
-    public Player(String name, AirTank tank) {
-        this.tank = tank;
+    public Player(String name) {
         this.name = name;
         inventory = new Vector<>();
         stash = new Vector<>();
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void gainRuin(int level) {
@@ -48,9 +50,5 @@ public class Player {
 
     public int numRuinsOnPerson() {
         return inventory.size();
-    }
-
-    public void breath() {
-        tank.breathFrom(numRuinsOnPerson());
     }
 }
