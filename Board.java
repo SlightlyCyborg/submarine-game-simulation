@@ -1,22 +1,26 @@
 package holon.simulation.game.submarine;
 
 import java.util.Vector;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Board {
     AirTank tank;
     Vector<Ruin> ruins;
-    Vector<Integer> players;
+    Vector<Player> players;
+    Map<Player, Integer> positions;
 
-    public Board(int numPlayers) {
+    public Board(Vector<Player> players) {
         tank = new AirTank();
         initRuins();
-        initPlayers(numPlayers);
+        this.players = players;
+        initPositions();
     }
 
-    private void initPlayers(int num) {
-        players = new Vector<>();
-        for(int i = 0; i < num; i++) {
-            players.add(i);
+    private void initPositions() {
+        positions = new HashMap<>();
+        for(Player player: players) {
+            positions.put(player, 0);
         }
     }
 
@@ -34,6 +38,15 @@ public class Board {
         }
     }
 
+    protected void changePlayerPosition(Player p, int increment) {
+        int pos = getPosition(p) + increment;
+        positions.put(p, pos);
+    }
+
+    public int getPosition(Player p) {
+        return positions.get(p);
+    }
+
     public String toString() {
         StringBuffer sb = new StringBuffer();
         sb.append(String.format("%d:", tank.readGague()));
@@ -41,8 +54,11 @@ public class Board {
             sb.append(String.format(" %d", ruin.getLevel()));
         }
         sb.append("\n");
-        for(Integer player: players) {
-            sb.append(String.format(" %d\n", player));
+        for(Player player: players) {
+            for(int i = 0; i < getPosition(player); i++) {
+                sb.append(" ");
+            }
+            sb.append(String.format(" ^%s\n", player.getName()));
         }
         return sb.toString();
     }

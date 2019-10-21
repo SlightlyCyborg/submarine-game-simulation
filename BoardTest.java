@@ -6,23 +6,41 @@ package holon.simulation.game.submarine;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.util.Vector;
+
 public class BoardTest {
     @Test public void testNewBoard() {
-        Board b = new Board(2);
+        Vector<Player> players = new Vector<>();
+        players.add(new Player("Collin"));
+        players.add(new Player("Jared"));
+        Board b = new Board(players);
+        b.changePlayerPosition(players.get(1), 2);
         String expected = "";
         expected += "25: 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4\n";
-        expected += " 0\n";
-        expected += " 1\n";
+        expected += " ^Collin\n";
+        expected += "   ^Jared\n";
         String actual = b.toString();
         assertEquals(expected, actual);
     }
 
     @Test public void test3PlayerBoard() {
-        Board b = new Board(3);
+        Vector<Player> players = new Vector<>();
+        players.add(new Player("Collin"));
+        players.add(new Player("Jared"));
+        players.add(new Player("Ashley"));
+        Board b = new Board(players);
         String actual = b.toString();
         String[] lines = actual.split("\n");
-        assertEquals(" 0", lines[1]);
-        assertEquals(" 1", lines[2]);
-        assertEquals(" 2", lines[3]);
+        assertEquals(" ^Collin", lines[1]);
+        assertEquals(" ^Jared", lines[2]);
+        assertEquals(" ^Ashley", lines[3]);
+    }
+
+    @Test public void movePlayer() {
+        Vector<Player> players = new Vector<>();
+        players.add(new Player("Collin"));
+        Board b = new Board(players);
+        b.changePlayerPosition(players.get(0), 2);
+        assertEquals(2, b.getPosition(players.get(0)));
     }
 }
