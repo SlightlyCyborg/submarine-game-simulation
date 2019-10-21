@@ -5,10 +5,10 @@ import java.util.Collections;
 
 public class Player {
 
-    String name;
-    AirTank tank;
-    Vector<Integer> inventory;
-    Vector<Integer> stash;
+    private String name;
+    private AirTank tank;
+    private Vector<Integer> inventory;
+    private Vector<Integer> stash;
 
     public Player(String name, AirTank tank) {
         this.tank = tank;
