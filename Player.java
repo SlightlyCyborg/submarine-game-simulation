@@ -6,10 +6,12 @@ import java.util.Collections;
 public class Player {
 
     String name;
+    AirTank tank;
     Vector<Integer> inventory;
     Vector<Integer> stash;
 
-    public Player(String name) {
+    public Player(String name, AirTank tank) {
+        this.tank = tank;
         this.name = name;
         inventory = new Vector<>();
         stash = new Vector<>();
@@ -42,5 +44,13 @@ public class Player {
         }
         sb.append("\n");
         return sb.toString();
+    }
+
+    public int numRuinsOnPerson() {
+        return inventory.size();
+    }
+
+    public void breath() {
+        tank.breathFrom(numRuinsOnPerson());
     }
 }
